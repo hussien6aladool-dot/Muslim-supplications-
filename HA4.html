@@ -1,0 +1,455 @@
+إليك الكود الكامل و المُصحح بالكامل مع جميع الوظائف المطلوبة:
+
+```html
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سجل حركة شحن سائقي الدراجات - شركة العلاونة للصرافة</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(45deg, #2c3e50, #3498db);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+        }
+
+        .header h1 {
+            font-size: 2.2em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 1.1em;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .stat-card {
+            background: rgba(255,255,255,0.2);
+            padding: 15px 25px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .form-container {
+            padding: 40px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c3e50;
+            font-size: 1.1em;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e1e8ed;
+            border-radius: 12px;
+            font-size: 1em;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #3498db;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+        }
+
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            border: 2px solid #e1e8ed;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .checkbox-item:hover {
+            border-color: #3498db;
+            background: #e3f2fd;
+            transform: translateY(-2px);
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            width: auto;
+            margin-left: 12px;
+            transform: scale(1.3);
+            accent-color: #3498db;
+        }
+
+        .checkbox-item.selected {
+            border-color: #27ae60;
+            background: #d5f4e6;
+            box-shadow: 0 5px 15px rgba(39, 174, 96, 0.3);
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #3498db, #2980b9);
+            color: white;
+            padding: 18px 40px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.2em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(52, 152, 219, 0.4);
+        }
+
+        .btn:active {
+            transform: translateY(-1px);
+        }
+
+        .btn-success {
+            background: linear-gradient(45deg, #27ae60, #2ecc71);
+        }
+
+        .btn-success:hover {
+            box-shadow: 0 15px 30px rgba(39, 174, 96, 0.4);
+        }
+
+        .email-section {
+            background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+            border: 2px solid #ffd700;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.7); }
+            70% { box-shadow: 0 0 0 20px rgba(255, 215, 0, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0); }
+        }
+
+        .success-message {
+            background: linear-gradient(135deg, #d4edda, #c3e6cb);
+            color: #155724;
+            padding: 25px;
+            border-radius: 15px;
+            border: 3px solid #28a745;
+            margin-bottom: 25px;
+            display: none;
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .distance-display {
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+            border: 3px solid #2196f3;
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #1976d2;
+            margin-bottom: 25px;
+            display: none;
+            box-shadow: 0 10px 25px rgba(33, 150, 243, 0.2);
+        }
+
+        .history-section {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 30px;
+        }
+
+        .history-title {
+            font-size: 1.5em;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .history-list {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .history-item {
+            background: white;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 12px;
+            border-left: 5px solid #3498db;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+
+        .clear-history {
+            background: linear-gradient(45deg, #e74c3c, #c0392b);
+            margin-top: 20px;
+        }
+
+        .clear-history:hover {
+            box-shadow: 0 15px 30px rgba(231, 76, 60, 0.4);
+        }
+
+        .footer {
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            color: white;
+            text-align: center;
+            padding: 30px;
+            font-size: 1.2em;
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .checkbox-group {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .form-container {
+                padding: 20px;
+            }
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .print-btn {
+            background: linear-gradient(45deg, #f39c12, #e67e22);
+            font-size: 1em;
+            padding: 12px 25px;
+            margin-top: 10px;
+            width: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 سجل حركة شحن سائقي الدراجات</h1>
+            <p>شركة العلاونة للصرافة</p>
+            <div class="stats">
+                <div class="stat-card">
+                    <div id="todayRecords">0</div>
+                    <small>سجلات اليوم</small>
+                </div>
+                <div class="stat-card">
+                    <div id="totalRecords">0</div>
+                    <small>إجمالي السجلات</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-container">
+            <!-- رسالة النجاح -->
+            <div id="successMessage" class="success-message">
+                ✅ تم حفظ وإرسال السجل بنجاح إلى مدير الشحن! 📧
+                <br><small>تم حفظ السجل محلياً للرجوع إليه لاحقاً</small>
+                <button class="print-btn btn" onclick="printRecord()">🖨️ طباعة السجل</button>
+            </div>
+
+            <!-- عرض المسافة -->
+            <div id="distanceDisplay" class="distance-display">
+                🚗 المسافة المقطوعة: <span id="distanceValue">0</span> كم
+            </div>
+
+            <!-- قسم الإيميلات -->
+            <div id="emailSection" class="email-section">
+                <h3>📧 إعدادات البريد الإلكتروني <small>(مرة واحدة فقط)</small></h3>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>بريد الموظف:</label>
+                        <input type="email" id="employeeEmail" placeholder="example@company.com">
+                    </div>
+                    <div class="form-group">
+                        <label>بريد مدير الشحن:</label>
+                        <input type="email" id="managerEmail" placeholder="manager@company.com">
+                    </div>
+                </div>
+                <button class="btn btn-success" onclick="saveEmails()">💾 حفظ الإيميلات</button>
+            </div>
+
+            <form id="movementForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>📍 اتجاه وجهة السائق:</label>
+                        <input type="text" id="direction" placeholder="اكتب الاتجاه بالتفصيل" required>
+                    </div>
+                    <div class="form-group">
+                        <label>👨‍💼 اسم السائق:</label>
+                        <select id="driver" required>
+                            <option value="">اختر السائق</option>
+                            <option value="امجد العدول">امجد العدول</option>
+                            <option value="شادي غوانمة">شادي غوانمة</option>
+                            <option value="اسامة ابو داري">اسامة ابو داري</option>
+                            <option value="محمد القصير">محمد القصير</option>
+                            <option value="منذر مهيرات">منذر مهيرات</option>
+                            <option value="صلاح الرفاعي">صلاح الرفاعي</option>
+                            <option value="علي الشعلان">علي الشعلان</option>
+                            <option value="بهجت الرياحنة">بهجت الرياحنة</option>
+                            <option value="أحمد معابره">أحمد معابره</option>
+                            <option value="إشتياق الملكاوي">إشتياق الملكاوي</option>
+                            <option value="أحمد ابو حماد">أحمد ابو حماد</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group full-width">
+                    <label>🔄 العملية:</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item" onclick="toggleCheckbox(this)">
+                            <input type="checkbox" id="cashTo" name="operation" value="شحن نقد لهم">
+                            <label for="cashTo">شحن نقد لهم</label>
+                        </div>
+                        <div class="checkbox-item" onclick="toggleCheckbox(this)">
+                            <input type="checkbox" id="cashFrom" name="operation" value="شحن نقد منهم">
+                            <label for="cashFrom">شحن نقد منهم</label>
+                        </div>
+                        <div class="checkbox-item" onclick="toggleCheckbox(this)">
+                            <input type="checkbox" id="checkClients" name="operation" value="تحصيل شيكات من العملاء">
+                            <label for="checkClients">تحصيل شيكات من العملاء</label>
+                        </div>
+                        <div class="checkbox-item" onclick="toggleCheckbox(this)">
+                            <input type="checkbox" id="checkBranches" name="operation" value="تحصيل شيكات من الفروع">
+                            <label for="checkBranches">تحصيل شيكات من الفروع</label>
+                        </div>
+                        <div class="checkbox-item" onclick="toggleCheckbox(this)">
+                            <input type="checkbox" id="mail" name="operation" value="استلام/تسليم بريد">
+                            <label for="mail">استلام/تسليم بريد</label>
+                        </div>
+                        <div class="checkbox-item" onclick="toggleCheckbox(this)">
+                            <input type="checkbox" id="signatures" name="operation" value="تواقيع معاملات">
+                            <label for="signatures">تواقيع معاملات</label>
+                        </div>
+                        <div class="checkbox-item" onclick="toggleCheckbox(this)">
+                            <input type="checkbox" id="cashDeposit" name="operation" value="ايداع نقدي في البنوك">
+                            <label for="cashDeposit">ايداع نقدي في البنوك</label>
+                        </div>
+                        <div class="checkbox-item" onclick="toggleCheckbox(this)">
+                            <input type="checkbox" id="checkClearing" name="operation" value="ايداع شيكات مقاصة">
+                            <label for="checkClearing">ايداع شيكات مقاصة</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>💰 المبلغ:</label>
+                        <input type="number" id="amount" placeholder="0.00" step="0.01" required>
+                    </div>
+                    <div class="form-group">
+                        <label>💱 العملة:</label>
+                        <select id="currency" required>
+                            <option value="">اختر العملة</option>
+                            <option value="دولار أمريكي (USD)">دولار أمريكي (USD) $</option>
+                            <option value="يورو (EUR)">يورو (EUR) €</option>
+                            <option value="دينار أردني (JOD)">دينار أردني (JOD) JD</option>
+                            <option value="ريال سعودي (SAR)">ريال سعودي (SAR) ر.س</option>
+                            <option value="درهم إماراتي (AED)">درهم إماراتي (AED) درهم</option>
+                            <option value="ليرة سورية (SYP)">ليرة سورية (SYP) ل.س</option>
+                            <option value="جنيه مصري (EGP)">جنيه مصري (EGP) ج.م</option>
+                            <option value="تواقيع معاملات">📝 تواقيع معاملات</option>
+                            <option value="أخرى">➕ أخرى</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>📊 قراءة العداد (عند الانطلاق):</label>
+                        <input type="number" id="startOdometer" placeholder="00000" step="0.1" required>
+                    </div>
+                    <div class="form-group">
+                        <label>📊 قراءة العداد (عند الانتهاء):</label>
+                        <input type="number" id="endOdometer" placeholder="00000" step="0.1" required>
+                    </div>
+                </div>
+
+                <div class="form-group full-width">
+                    <label>📝 ملاحظات:</label>
+                    <textarea id="notes" rows="4" placeholder="اكتب أي ملاحظات إضافية..."></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-success">💾 حفظ وإرسال
